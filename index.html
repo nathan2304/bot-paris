@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BetScope V2</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">B</div>
+        <div>
+          <h1>BetScope V2</h1>
+          <p>Top 3 paris du soir</p>
+        </div>
+      </div>
+
+      <section class="panel">
+        <h2>Réglages</h2>
+
+        <label>Backend URL
+          <input id="backendUrl" type="text" placeholder="https://ton-worker.workers.dev" />
+        </label>
+
+        <label>Compétition
+          <select id="competition">
+            <option value="PL">Premier League</option>
+            <option value="FL1">Ligue 1</option>
+            <option value="PD">La Liga</option>
+            <option value="SA">Serie A</option>
+            <option value="BL1">Bundesliga</option>
+            <option value="CL">Ligue des Champions</option>
+          </select>
+        </label>
+
+        <label>Mode de risque
+          <select id="riskMode">
+            <option value="safe">Safe</option>
+            <option value="balanced" selected>Balanced</option>
+            <option value="aggressive">Agressif</option>
+          </select>
+        </label>
+
+        <label>Paris max à afficher
+          <select id="topN">
+            <option>3</option>
+            <option>5</option>
+            <option>10</option>
+          </select>
+        </label>
+
+        <button id="analyzeBtn">Analyser les matchs</button>
+      </section>
+
+      <section class="panel">
+        <h2>Comment ça marche</h2>
+        <ul class="mini-list">
+          <li>Le bot mélange stats d’équipes + cotes du marché.</li>
+          <li>Il calcule une probabilité maison pour chaque issue.</li>
+          <li>Il compare cette probabilité avec la cote proposée.</li>
+          <li>Il te sort les paris les plus intéressants avec un score de confiance.</li>
+        </ul>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Assistant de décision</p>
+          <h2>Qui parier ce soir ?</h2>
+          <p id="subtitle" class="subtitle">Configure ton backend puis lance l’analyse.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span>Paris retenus</span>
+            <strong id="statPicks">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Matchs étudiés</span>
+            <strong id="statMatches">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Heure analyse</span>
+            <strong id="statTime">--:--</strong>
+          </div>
+        </div>
+      </header>
+
+      <section id="statusBox" class="status info">Prêt.</section>
+
+      <section class="grid two">
+        <div class="card">
+          <div class="card-header">
+            <h3>Top paris</h3>
+            <span class="chip">Top <span id="topLabel">3</span></span>
+          </div>
+          <div id="picksList" class="stack"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Matchs analysés</h3>
+            <span class="chip secondary">Vue rapide</span>
+          </div>
+          <div id="matchesList" class="stack compact"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
