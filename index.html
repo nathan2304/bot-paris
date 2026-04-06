@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 3 Value Bets Live</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background:#0f172a; color:#e2e8f0; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 18px; }
+    h1 { font-size: 1.4rem; margin: 0 0 10px; }
+    .card { background:#111827; border:1px solid #334155; border-radius:14px; padding:14px; margin: 12px 0; }
+    label { display:block; font-size:0.92rem; margin: 10px 0 6px; color:#cbd5e1; }
+    input, select, button { width:100%; box-sizing:border-box; border-radius:10px; border:1px solid #475569; padding:12px; font-size:16px; background:#0b1220; color:#e2e8f0; }
+    button { cursor:pointer; background:#2563eb; border:none; font-weight:700; margin-top:12px; }
+    button:hover { background:#1d4ed8; }
+    .muted { color:#94a3b8; font-size:0.92rem; line-height:1.45; }
+    .result { border:1px solid #334155; border-radius:12px; padding:12px; margin:10px 0; background:#0b1220; }
+    .badge { display:inline-block; padding:4px 8px; border-radius:999px; font-size:0.8rem; background:#14532d; color:#dcfce7; margin-left:8px; }
+    .warn { color:#fecaca; }
+    .ok { color:#86efac; }
+    .row { display:grid; grid-template-columns:1fr; gap:10px; }
+    @media (min-width: 700px) { .row { grid-template-columns:1fr 1fr; } }
+    code { background:#0b1220; padding:2px 6px; border-radius:6px; }
+    .small { font-size:0.85rem; color:#a5b4fc; }
+    a { color:#93c5fd; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🤖 Top 3 paris “value” en direct</h1>
+
+    <div class="card">
+      <div class="muted">
+        Version prête pour GitHub Pages. Elle récupère les cotes live d’un marché d’odds,
+        compare chaque prix d’un bookmaker au consensus du marché, puis sort les 3 meilleures opportunités sur le marché <b>1X2</b>.
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Clé API</label>
+          <input id="apiKey" placeholder="Colle ta clé API The Odds API" />
+        </div>
+        <div>
+          <label>Compétition</label>
+          <select id="sportKey">
+            <option value="soccer_france_ligue_one">Ligue 1</option>
+            <option value="soccer_uefa_champs_league">Ligue des Champions</option>
+            <option value="soccer_epl">Premier League</option>
+            <option value="soccer_spain_la_liga">La Liga</option>
+            <option value="soccer_italy_serie_a">Serie A</option>
+            <option value="soccer_germany_bundesliga">Bundesliga</option>
+            <option value="soccer_uefa_europa_league">Europa League</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Région bookmakers</label>
+          <select id="region">
+            <option value="eu">EU</option>
+            <option value="uk">UK</option>
+            <option value="us">US</option>
+            <option value="au">AU</option>
+          </select>
+        </div>
+        <div>
+          <label>Mode</label>
+          <select id="mode">
+            <option value="best">Meilleur bookmaker disponible</option>
+            <option value="target">Bookmaker précis</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Bookmaker cible</label>
+      <input id="bookmaker" placeholder="Ex: betclic, pinnacle, unibet_eu" value="pinnacle" />
+
+      <div class="row">
+        <button id="testBtn">Tester l’API</button>
+        <button id="runBtn">Trouver les 3 meilleurs paris</button>
+      </div>
+
+      <div class="small" style="margin-top:8px;">
+        Conseil : commence avec <code>EU</code> + <code>Meilleur bookmaker disponible</code>.
+      </div>
+    </div>
+
+    <div id="status" class="card muted">Prêt.</div>
+    <div id="results"></div>
+
+    <div class="card muted">
+      <b>Formule</b><br>
+      Edge ≈ <code>(1 / cote_moyenne_marché) - (1 / cote_bookmaker)</code><br>
+      Plus l’edge est positif, plus le prix du bookmaker choisi est favorable par rapport au marché.
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
